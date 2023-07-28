@@ -54,10 +54,10 @@ int[,] array = {
             };
 
 Console.Write("Введите номер строки: ");
-int row = int.Parse(Console.ReadLine());
+int row = Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Введите номер столбца: ");
-int col = int.Parse(Console.ReadLine());
+int col = Convert.ToInt32(Console.ReadLine());
 
 int value = GetArrayElement(array, row, col);
 {

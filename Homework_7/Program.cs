@@ -47,46 +47,91 @@
 // PrintArray(array, m, n);
 // Задача 50.Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
 
+// int[,] array = {
+//                 { 1, 2, 7, 2 },
+//                 { 5, 9, 2, 3 },
+//                 { 8, 4, 2, 4 }
+//             };
+
+// Console.Write("Введите номер строки: ");
+// int row = Convert.ToInt32(Console.ReadLine());
+
+// Console.Write("Введите номер столбца: ");
+// int col = Convert.ToInt32(Console.ReadLine());
+
+// int value = GetArrayElement(array, row, col);
+// {
+
+//     if (value != -1)
+//     {
+//         Console.WriteLine($"Значение элемента: {value}");
+//     }
+//     else
+//     {
+//         Console.WriteLine("Такого элемента не существует.");
+//     }
+// }
+
+// int GetArrayElement(int[,] array, int row, int col)
+// {
+//     int numRows = array.GetLength(0);
+//     int numCols = array.GetLength(1);
+
+//     if (row >= 0 && row < numRows && col >= 0 && col < numCols)
+//     {
+//         return array[row, col];
+//     }
+
+//     else
+//     {
+
+
+//         // Если позиция элемента выходит за пределы массива, возвращаем -1
+//         return -1;
+//     }
+// }
+
+// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+
+
+
+
 int[,] array = {
-                { 1, 2, 7, 2 },
+                { 1, 4, 7, 2 },
                 { 5, 9, 2, 3 },
                 { 8, 4, 2, 4 }
             };
 
-Console.Write("Введите номер строки: ");
-int row = Convert.ToInt32(Console.ReadLine());
+int rows = array.GetLength(0); // Количество строк
+int cols = array.GetLength(1); // Количество столбцов
 
-Console.Write("Введите номер столбца: ");
-int col = Convert.ToInt32(Console.ReadLine());
+double[] averages = new double[cols]; // Массив для хранения средних значений
 
-int value = GetArrayElement(array, row, col);
+// Находим среднее значение для каждого столбца
+for (int j = 0; j < cols; j++)
 {
-
-    if (value != -1)
-    {
-        Console.WriteLine($"Значение элемента: {value}");
-    }
-    else
-    {
-        Console.WriteLine("Такого элемента не существует.");
-    }
+    averages[j] = CalculateColumnAverage(array, rows, j);
 }
 
-int GetArrayElement(int[,] array, int row, int col)
+// Выводим средние значения для каждого столбца
+PrintAverages(averages, cols);
+
+
+double CalculateColumnAverage(int[,] array, int rows, int colIndex)
 {
-    int numRows = array.GetLength(0);
-    int numCols = array.GetLength(1);
-
-    if (row >= 0 && row < numRows && col >= 0 && col < numCols)
+    int sum = 0;
+    for (int i = 0; i < rows; i++)
     {
-        return array[row, col];
+        sum += array[i, colIndex]; // Суммируем элементы в столбце
     }
+    return (double)sum / rows; // Вычисляем среднее арифметическое для столбца
+}
 
-    else
+void PrintAverages(double[] averages, int cols)
+{
+    Console.WriteLine("Среднее арифметическое элементов в каждом столбце:");
+    for (int j = 0; j < cols; j++)
     {
-
-
-        // Если позиция элемента выходит за пределы массива, возвращаем -1
-        return -1;
+        Console.WriteLine($"Столбец {j + 1}: {averages[j]:F1}");
     }
 }

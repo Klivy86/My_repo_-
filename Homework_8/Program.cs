@@ -87,61 +87,121 @@
 // 2 4 | 3 4
 // 3 2 | 3 3
 
-int[,] matrix1 = {
-            { 2, 4 },
-            { 3, 2 }
-        };
+// int[,] matrix1 = {
+//             { 2, 4 },
+//             { 3, 2 }
+//         };
 
-int[,] matrix2 = {
-            { 3, 4 },
-            { 3, 3 }
-        };
+// int[,] matrix2 = {
+//             { 3, 4 },
+//             { 3, 3 }
+//         };
 
-int[,] productMatrix = MultiplyMatrices(matrix1, matrix2);
+// int[,] productMatrix = MultiplyMatrices(matrix1, matrix2);
 
 // Выводим результат
-Console.WriteLine("Произведение матриц:");
-PrintMatrix(productMatrix);
-    
+// Console.WriteLine("Произведение матриц:");
+// PrintMatrix(productMatrix);
 
-    static int[,] MultiplyMatrices(int[,] matrix1, int[,] matrix2)
+
+//     static int[,] MultiplyMatrices(int[,] matrix1, int[,] matrix2)
+// {
+//     int rows1 = matrix1.GetLength(0);
+//     int cols1 = matrix1.GetLength(1);
+//     int rows2 = matrix2.GetLength(0);
+//     int cols2 = matrix2.GetLength(1);
+
+//     if (cols1 != rows2)
+//         throw new ArgumentException("Несовместимые матрицы для умножения.");
+
+//     int[,] result = new int[rows1, cols2];
+
+//     for (int i = 0; i < rows1; i++)
+//     {
+//         for (int j = 0; j < cols2; j++)
+//         {
+//             int sum = 0;
+//             for (int k = 0; k < cols1; k++)
+//             {
+//                 sum += matrix1[i, k] * matrix2[k, j];
+//             }
+//             result[i, j] = sum;
+//         }
+//     }
+
+//     return result;
+// }
+// void PrintMatrix(int[,] matrix)
+// {
+//     int rows = matrix.GetLength(0);
+//     int cols = matrix.GetLength(1);
+
+//     for (int i = 0; i < rows; i++)
+//     {
+//         for (int j = 0; j < cols; j++)
+//         {
+//             Console.Write(matrix[i, j] + " ");
+//         }
+//         Console.WriteLine();
+//     }
+// }
+
+// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+
+int n = 4; // размерность массива
+int[,] spiralArray = new int[n, n];
+
+FillSpiralArray(spiralArray);
 {
-    int rows1 = matrix1.GetLength(0);
-    int cols1 = matrix1.GetLength(1);
-    int rows2 = matrix2.GetLength(0);
-    int cols2 = matrix2.GetLength(1);
 
-    if (cols1 != rows2)
-        throw new ArgumentException("Несовместимые матрицы для умножения.");
-
-    int[,] result = new int[rows1, cols2];
-
-    for (int i = 0; i < rows1; i++)
+    // Выводим заполненный спиральный массив
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < cols2; j++)
+        for (int j = 0; j < n; j++)
         {
-            int sum = 0;
-            for (int k = 0; k < cols1; k++)
-            {
-                sum += matrix1[i, k] * matrix2[k, j];
-            }
-            result[i, j] = sum;
-        }
-    }
-
-    return result;
-}
-void PrintMatrix(int[,] matrix)
-{
-    int rows = matrix.GetLength(0);
-    int cols = matrix.GetLength(1);
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            Console.Write(matrix[i, j] + " ");
+            Console.Write(spiralArray[i, j] + "\t");
         }
         Console.WriteLine();
+    }
+}
+
+void FillSpiralArray(int[,] arr)
+{
+    int n = arr.GetLength(0);
+    int currentNumber = 1;
+    int rowStart = 0;
+    int rowEnd = n - 1;
+    int colStart = 0;
+    int colEnd = n - 1;
+
+    while (currentNumber <= n * n)
+    {
+        // Вправо
+        for (int i = colStart; i <= colEnd; i++)
+        {
+            arr[rowStart, i] = currentNumber++;
+        }
+        rowStart++;
+
+        // Вниз
+        for (int i = rowStart; i <= rowEnd; i++)
+        {
+            arr[i, colEnd] = currentNumber++;
+        }
+        colEnd--;
+
+        // Влево
+        for (int i = colEnd; i >= colStart; i--)
+        {
+            arr[rowEnd, i] = currentNumber++;
+        }
+        rowEnd--;
+
+        // Вверх
+        for (int i = rowEnd; i >= rowStart; i--)
+        {
+            arr[i, colStart] = currentNumber++;
+        }
+        colStart++;
     }
 }
